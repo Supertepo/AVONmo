@@ -18,6 +18,31 @@ namespace AVONmo.Controllers
             return View();
         }
 
+        public IActionResult Cremas()
+        {
+            return View();
+        }
+
+        public IActionResult Perfumes()
+        {
+            return View();
+        }
+
+        public IActionResult Electrodomesticos()
+        {
+            return View();
+        }
+
+        public IActionResult Maquillaje()
+        {
+            return View();
+        }
+
+        public IActionResult Tuppers()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
