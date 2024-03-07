@@ -90,7 +90,7 @@ namespace AVONmo.Controllers
 
         public IActionResult Maquillaje()
         {
-            List<Tupper> listaMaquillaje = new List<Tupper>();
+            List<Maquillaje> listaMaquillaje = new List<Maquillaje>();
             List<Precio> listaPrecio = new List<Precio>();
             List<Categorium> listaCategorias = new List<Categorium>();
             using (var context = new AvonContext())
@@ -106,7 +106,7 @@ namespace AVONmo.Controllers
                 listaCategorias = listaMaquillaje.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToList();
             }
             //ViewBag.Categoria = Categoria;
-            return View(new Tuple<List<Tupper>, List<Precio>, List<Categorium>>(listaMaquillaje, listaPrecio, listaCategorias));
+            return View(new Tuple<List<Maquillaje>, List<Precio>, List<Categorium>>(listaMaquillaje, listaPrecio, listaCategorias));
         }
 
         public IActionResult Tuppers()

@@ -1,4 +1,5 @@
-﻿<style type="text/css">
+﻿@model Tuple<List<Maquillaje>,List<Precio>,List<Categorium>>
+<style type="text/css">
     tr:nth-child(even) {
         background-color: white;
     }
@@ -35,6 +36,15 @@
                                 <th class="text-center" width="16%">PRECIO</th>
 
                             </tr>
+                            @for (int i = 0; i < Model.Item1.Count; i++)
+                            {
+                                <tr>
+                                    <td>@Model.Item3[i].Titulo</td>
+                                    <td>@Model.Item1[i].IdProducto</td>
+                                    <td>@Model.Item1[i].Descripcion</td>
+                                    <td>@Model.Item2[i].Cantidad</td>
+                                </tr>
+                            }
 
                         </table>
 
