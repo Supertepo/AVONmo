@@ -1,57 +1,37 @@
 ﻿@model Tuple<List<Crema>,List<Precio>,List<Categorium>>
-<style type="text/css">
-        tr:nth-child(even) {
-            background-color: white;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #808080;
-        }
-</style>
 @{
     ViewData["Title"] = "Cremas";
 }
-<div class="main-panel">
-    <div class="container">
 
-
-        <div class="row">
-            <div class="col-md-4 ">
-                <div class="menuContainerh"> </div>
-            </div>
-            <div class="col-md-8 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-title font-weight-bold text-center">CREMAS</p>
-                        <hr>
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title font-weight-bold text-center">@ViewData["Title"]</h2>
+        <hr>
 
 
 
-                        <table style="width:100%;height:90%;" align="center">
+        <table class="table table-warning table-striped">
 
-                            <tr style="background-color: #9A2EFE; color: black;">
-                                <th class="text-center" width="20%">CATEGORIA</th>
-                                <th class="text-center" width="16%">ID</th>
-                                <th class="text-center" width="16%">NOMBRE</th>
-                                <th class="text-center" width="16%">PRECIO</th>
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-center" width="20%">CATEGORIA</th>
+                    <th class="text-center" width="16%">ID</th>
+                    <th class="text-center" width="16%">NOMBRE</th>
+                    <th class="text-center" width="16%">PRECIO</th>
 
-                            </tr>
-                            @for (int i = 0; i<Model.Item1.Count;i++)
-                            {
-                                <tr>
-                                    <td>@Model.Item3[i].Titulo</td>
-                                    <td>@Model.Item1[i].IdProducto</td>
-                                    <td>@Model.Item1[i].Descripcion</td>
-                                    <td>@Model.Item2[i].Cantidad</td>
-                                </tr>
-                            }
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="menuContainerf"> </div>
-
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Item1.Count; i++)
+                {
+                    <tr>
+                        <td class="text-center">@Model.Item3[i].Titulo</td>
+                        <td class="text-center">@Model.Item1[i].IdProducto</td>
+                        <td>@Model.Item1[i].Descripcion</td>
+                        <td class="text-center">@Model.Item2[i].Cantidad</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
