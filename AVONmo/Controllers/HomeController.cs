@@ -17,7 +17,7 @@ namespace AVONmo.Controllers
         public IActionResult Index()
         {
             List<Categorium> listaCategorias = new List<Categorium>();
-            using (var context = new AvonContext()) 
+            using (var context = new AvonContext())
             {
                 listaCategorias = context.Categoria.ToList();
             }
@@ -32,17 +32,11 @@ namespace AVONmo.Controllers
             using (var context = new AvonContext())
             {
                 listaCremas = context.Cremas.ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaPrecio = listaCremas.SelectMany(crema => context.Precios.Where(p => p.IdPrecio == crema.IdPrecio)).ToList();
-            }
-            using (var context = new AvonContext())
-            {
-              listaCategorias = listaCremas.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToList();
+                listaCategorias = listaCremas.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToList();
             }
             //ViewBag.Categoria = Categoria;
-            return View(new Tuple<List<Crema>,List<Precio>,List<Categorium>>(listaCremas,listaPrecio,listaCategorias));
+            return View(new Tuple<List<Crema>, List<Precio>, List<Categorium>>(listaCremas, listaPrecio, listaCategorias));
         }
 
 
@@ -54,13 +48,7 @@ namespace AVONmo.Controllers
             using (var context = new AvonContext())
             {
                 listaPerfumes = context.Perfumes.ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaPrecio = listaPerfumes.SelectMany(perfume => context.Precios.Where(p => p.IdPrecio == perfume.IdPrecio)).ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaCategorias = listaPerfumes.SelectMany(perfume => context.Categoria.Where(p => p.IdCategoria == perfume.IdCategoria)).ToList();
             }
             //ViewBag.Categoria = Categoria;
@@ -75,13 +63,7 @@ namespace AVONmo.Controllers
             using (var context = new AvonContext())
             {
                 listaElectrodomesticos = context.Electrodomesticos.ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaPrecio = listaElectrodomesticos.SelectMany(electrodomestico => context.Precios.Where(p => p.IdPrecio == electrodomestico.IdPrecio)).ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaCategorias = listaElectrodomesticos.SelectMany(electrodomestico => context.Categoria.Where(p => p.IdCategoria == electrodomestico.IdCategoria)).ToList();
             }
             //ViewBag.Categoria = Categoria;
@@ -96,13 +78,7 @@ namespace AVONmo.Controllers
             using (var context = new AvonContext())
             {
                 listaMaquillaje = context.Maquillajes.ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaPrecio = listaMaquillaje.SelectMany(maquillaje => context.Precios.Where(p => p.IdPrecio == maquillaje.IdPrecio)).ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaCategorias = listaMaquillaje.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToList();
             }
             //ViewBag.Categoria = Categoria;
@@ -117,13 +93,7 @@ namespace AVONmo.Controllers
             using (var context = new AvonContext())
             {
                 listaTuppers = context.Tuppers.ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaPrecio = listaTuppers.SelectMany(tupper => context.Precios.Where(p => p.IdPrecio == tupper.IdPrecio)).ToList();
-            }
-            using (var context = new AvonContext())
-            {
                 listaCategorias = listaTuppers.SelectMany(tupper => context.Categoria.Where(p => p.IdCategoria == tupper.IdCategoria)).ToList();
             }
             //ViewBag.Categoria = Categoria;
