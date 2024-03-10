@@ -8,98 +8,104 @@ namespace AVONmo.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AvonContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , AvonContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Categorium> listaCategorias = new List<Categorium>();
-            using (var context = new AvonContext())
-            {
-                listaCategorias = context.Categoria.ToList();
-            }
-            return View(listaCategorias);
+            return View(await _context.Categoria.ToListAsync());
         }
 
-        public IActionResult Cremas()
+        public async Task<IActionResult> CremasAsync()
         {
-            List<Crema> listaCremas = new List<Crema>();
-            List<Precio> listaPrecio = new List<Precio>();
-            List<Categorium> listaCategorias = new List<Categorium>();
-            using (var context = new AvonContext())
+            List<Crema> listaCremas;
+            List<Precio> listaPrecio;
+            List<Categorium> listaCategorias;
+            using (var context = _context)
             {
-                listaCremas = context.Cremas.ToList();
-                listaPrecio = listaCremas.SelectMany(crema => context.Precios.Where(p => p.IdPrecio == crema.IdPrecio)).ToList();
-                listaCategorias = listaCremas.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToList();
+                listaCremas = await context.Cremas.ToListAsync();
+                listaPrecio = await context.Cremas.SelectMany(crema => context.Precios.Where(p => p.IdPrecio == crema.IdPrecio)).ToListAsync();
+                listaCategorias = await context.Cremas.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToListAsync();
             }
             //ViewBag.Categoria = Categoria;
             return View(new Tuple<List<Crema>, List<Precio>, List<Categorium>>(listaCremas, listaPrecio, listaCategorias));
         }
 
 
-        public IActionResult Perfumes()
+        public async  Task<IActionResult> Perfumes()
         {
             List<Perfume> listaPerfumes = new List<Perfume>();
             List<Precio> listaPrecio = new List<Precio>();
             List<Categorium> listaCategorias = new List<Categorium>();
-            using (var context = new AvonContext())
+            using (var context = _context)
             {
-                listaPerfumes = context.Perfumes.ToList();
-                listaPrecio = listaPerfumes.SelectMany(perfume => context.Precios.Where(p => p.IdPrecio == perfume.IdPrecio)).ToList();
-                listaCategorias = listaPerfumes.SelectMany(perfume => context.Categoria.Where(p => p.IdCategoria == perfume.IdCategoria)).ToList();
+                listaPerfumes = await context.Perfumes.ToListAsync();
+                listaPrecio = await context.Perfumes.SelectMany(perfume => context.Precios.Where(p => p.IdPrecio == perfume.IdPrecio)).ToListAsync();
+                listaCategorias = await context.Perfumes.SelectMany(perfume => context.Categoria.Where(p => p.IdCategoria == perfume.IdCategoria)).ToListAsync();
             }
             //ViewBag.Categoria = Categoria;
             return View(new Tuple<List<Perfume>, List<Precio>, List<Categorium>>(listaPerfumes, listaPrecio, listaCategorias));
         }
 
-        public IActionResult Electrodomesticos()
+        public async Task<IActionResult> Electrodomesticos()
         {
             List<Electrodomestico> listaElectrodomesticos = new List<Electrodomestico>();
             List<Precio> listaPrecio = new List<Precio>();
             List<Categorium> listaCategorias = new List<Categorium>();
-            using (var context = new AvonContext())
+            using (var context = _context)
             {
-                listaElectrodomesticos = context.Electrodomesticos.ToList();
-                listaPrecio = listaElectrodomesticos.SelectMany(electrodomestico => context.Precios.Where(p => p.IdPrecio == electrodomestico.IdPrecio)).ToList();
-                listaCategorias = listaElectrodomesticos.SelectMany(electrodomestico => context.Categoria.Where(p => p.IdCategoria == electrodomestico.IdCategoria)).ToList();
+                listaElectrodomesticos = await context.Electrodomesticos.ToListAsync();
+                listaPrecio = await context.Electrodomesticos.SelectMany(electrodomestico => context.Precios.Where(p => p.IdPrecio == electrodomestico.IdPrecio)).ToListAsync();
+                listaCategorias = await context.Electrodomesticos.SelectMany(electrodomestico => context.Categoria.Where(p => p.IdCategoria == electrodomestico.IdCategoria)).ToListAsync();
             }
             //ViewBag.Categoria = Categoria;
             return View(new Tuple<List<Electrodomestico>, List<Precio>, List<Categorium>>(listaElectrodomesticos, listaPrecio, listaCategorias));
         }
 
-        public IActionResult Maquillaje()
+        public async Task<IActionResult> Maquillaje()
         {
             List<Maquillaje> listaMaquillaje = new List<Maquillaje>();
             List<Precio> listaPrecio = new List<Precio>();
             List<Categorium> listaCategorias = new List<Categorium>();
-            using (var context = new AvonContext())
+            using (var context = _context)
             {
-                listaMaquillaje = context.Maquillajes.ToList();
-                listaPrecio = listaMaquillaje.SelectMany(maquillaje => context.Precios.Where(p => p.IdPrecio == maquillaje.IdPrecio)).ToList();
-                listaCategorias = listaMaquillaje.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToList();
+                listaMaquillaje = await context.Maquillajes.ToListAsync();
+                listaPrecio = await context.Maquillajes.SelectMany(maquillaje => context.Precios.Where(p => p.IdPrecio == maquillaje.IdPrecio)).ToListAsync();
+                listaCategorias = await context.Maquillajes.SelectMany(crema => context.Categoria.Where(p => p.IdCategoria == crema.IdCategoria)).ToListAsync();
             }
             //ViewBag.Categoria = Categoria;
             return View(new Tuple<List<Maquillaje>, List<Precio>, List<Categorium>>(listaMaquillaje, listaPrecio, listaCategorias));
         }
 
-        public IActionResult Tuppers()
+        public async Task<IActionResult> Tuppers()
         {
             List<Tupper> listaTuppers = new List<Tupper>();
             List<Precio> listaPrecio = new List<Precio>();
             List<Categorium> listaCategorias = new List<Categorium>();
-            using (var context = new AvonContext())
+            using (var context = _context)
             {
-                listaTuppers = context.Tuppers.ToList();
-                listaPrecio = listaTuppers.SelectMany(tupper => context.Precios.Where(p => p.IdPrecio == tupper.IdPrecio)).ToList();
-                listaCategorias = listaTuppers.SelectMany(tupper => context.Categoria.Where(p => p.IdCategoria == tupper.IdCategoria)).ToList();
+                listaTuppers = await context.Tuppers.ToListAsync();
+                listaPrecio = await context.Tuppers.SelectMany(tupper => context.Precios.Where(p => p.IdPrecio == tupper.IdPrecio)).ToListAsync();
+                listaCategorias = await context.Tuppers.SelectMany(tupper => context.Categoria.Where(p => p.IdCategoria == tupper.IdCategoria)).ToListAsync();
             }
             //ViewBag.Categoria = Categoria;
             return View(new Tuple<List<Tupper>, List<Precio>, List<Categorium>>(listaTuppers, listaPrecio, listaCategorias));
         }
 
+        public ActionResult CrearCrema()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CrearCrema(Crema crema)
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
