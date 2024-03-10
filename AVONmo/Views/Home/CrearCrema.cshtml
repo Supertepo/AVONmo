@@ -3,8 +3,12 @@
 }
 <h1>Pagina de Creacion de nuevo producto</h1>
 <form asp-action="CrearCrema" method="post">
- Categoria: <input value="C-000" disabled/>
- ID Producto: <input value=@ViewBag.Ultimo disabled
- Nombre: <input/>
-
+    
+    Categoria: <input  value="C-000" disabled class="form-control" />
+    <br />
+    Nombre Producto <input value=""  required class="form-control" />
+    <br />
+    Precio <input name="Precio" type="password" value="" required class="form-control" />
+    <br />
+    <button type="submit" class="btn-danger" id="btn">AGREGAR</button>
 </form>

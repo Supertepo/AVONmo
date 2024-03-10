@@ -5,7 +5,7 @@ namespace AVONmo.Models;
 
 public partial class Precio
 {
-    public string IdPrecio { get; set; } = null!;
+    public int IdPrecio { get; set; }
 
     public double? Cantidad { get; set; }
 

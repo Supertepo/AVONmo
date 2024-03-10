@@ -39,7 +39,7 @@ public partial class AvonmoDatabaseContext : DbContext
     {
         modelBuilder.Entity<Categorium>(entity =>
         {
-            entity.HasKey(e => e.IdCategoria).HasName("PK__categori__CB9033496ACEFBB9");
+            entity.HasKey(e => e.IdCategoria).HasName("PK__categori__CB903349344DBDAF");
 
             entity.ToTable("categoria");
 
@@ -57,7 +57,7 @@ public partial class AvonmoDatabaseContext : DbContext
 
         modelBuilder.Entity<Crema>(entity =>
         {
-            entity.HasKey(e => e.IdProducto).HasName("PK__Cremas__2085A9CFFD2A6C68");
+            entity.HasKey(e => e.IdProducto).HasName("PK__Cremas__2085A9CF8DD732A9");
 
             entity.Property(e => e.IdProducto)
                 .HasMaxLength(10)
@@ -70,23 +70,20 @@ public partial class AvonmoDatabaseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("Id_Categoria");
-            entity.Property(e => e.IdPrecio)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("Id_Precio");
+            entity.Property(e => e.IdPrecio).HasColumnName("Id_Precio");
 
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Cremas)
                 .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK__Cremas__Id_Categ__6383C8BA");
+                .HasConstraintName("FK__Cremas__Id_Categ__09A971A2");
 
             entity.HasOne(d => d.IdPrecioNavigation).WithMany(p => p.Cremas)
                 .HasForeignKey(d => d.IdPrecio)
-                .HasConstraintName("FK__Cremas__Id_Preci__6477ECF3");
+                .HasConstraintName("FK__Cremas__Id_Preci__0A9D95DB");
         });
 
         modelBuilder.Entity<Electrodomestico>(entity =>
         {
-            entity.HasKey(e => e.IdProducto).HasName("PK__Electrod__2085A9CF41B67A81");
+            entity.HasKey(e => e.IdProducto).HasName("PK__Electrod__2085A9CF868938E2");
 
             entity.Property(e => e.IdProducto)
                 .HasMaxLength(10)
@@ -99,23 +96,20 @@ public partial class AvonmoDatabaseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("Id_Categoria");
-            entity.Property(e => e.IdPrecio)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("Id_Precio");
+            entity.Property(e => e.IdPrecio).HasColumnName("Id_Precio");
 
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Electrodomesticos)
                 .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK__Electrodo__Id_Ca__6B24EA82");
+                .HasConstraintName("FK__Electrodo__Id_Ca__114A936A");
 
             entity.HasOne(d => d.IdPrecioNavigation).WithMany(p => p.Electrodomesticos)
                 .HasForeignKey(d => d.IdPrecio)
-                .HasConstraintName("FK__Electrodo__Id_Pr__6C190EBB");
+                .HasConstraintName("FK__Electrodo__Id_Pr__123EB7A3");
         });
 
         modelBuilder.Entity<Maquillaje>(entity =>
         {
-            entity.HasKey(e => e.IdProducto).HasName("PK__Maquilla__2085A9CF331C8249");
+            entity.HasKey(e => e.IdProducto).HasName("PK__Maquilla__2085A9CF5EFFC4FD");
 
             entity.ToTable("Maquillaje");
 
@@ -130,23 +124,20 @@ public partial class AvonmoDatabaseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("Id_Categoria");
-            entity.Property(e => e.IdPrecio)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("Id_Precio");
+            entity.Property(e => e.IdPrecio).HasColumnName("Id_Precio");
 
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Maquillajes)
                 .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK__Maquillaj__Id_Ca__6EF57B66");
+                .HasConstraintName("FK__Maquillaj__Id_Ca__151B244E");
 
             entity.HasOne(d => d.IdPrecioNavigation).WithMany(p => p.Maquillajes)
                 .HasForeignKey(d => d.IdPrecio)
-                .HasConstraintName("FK__Maquillaj__Id_Pr__6FE99F9F");
+                .HasConstraintName("FK__Maquillaj__Id_Pr__160F4887");
         });
 
         modelBuilder.Entity<Menu>(entity =>
         {
-            entity.HasKey(e => e.IdMenu).HasName("PK__Menu__F6BCBF2E43BAC17B");
+            entity.HasKey(e => e.IdMenu).HasName("PK__Menu__F6BCBF2E8512FB7C");
 
             entity.ToTable("Menu");
 
@@ -162,12 +153,12 @@ public partial class AvonmoDatabaseContext : DbContext
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Menus)
                 .HasForeignKey(d => d.IdCategoria)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Menu__Id_Categor__5EBF139D");
+                .HasConstraintName("FK__Menu__Id_Categor__04E4BC85");
         });
 
         modelBuilder.Entity<Perfume>(entity =>
         {
-            entity.HasKey(e => e.IdProducto).HasName("PK__Perfumes__2085A9CF27C56169");
+            entity.HasKey(e => e.IdProducto).HasName("PK__Perfumes__2085A9CFC6955EA4");
 
             entity.Property(e => e.IdProducto)
                 .HasMaxLength(10)
@@ -180,33 +171,27 @@ public partial class AvonmoDatabaseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("Id_Categoria");
-            entity.Property(e => e.IdPrecio)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("Id_Precio");
+            entity.Property(e => e.IdPrecio).HasColumnName("Id_Precio");
 
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Perfumes)
                 .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK__Perfumes__Id_Cat__6754599E");
+                .HasConstraintName("FK__Perfumes__Id_Cat__0D7A0286");
 
             entity.HasOne(d => d.IdPrecioNavigation).WithMany(p => p.Perfumes)
                 .HasForeignKey(d => d.IdPrecio)
-                .HasConstraintName("FK__Perfumes__Id_Pre__68487DD7");
+                .HasConstraintName("FK__Perfumes__Id_Pre__0E6E26BF");
         });
 
         modelBuilder.Entity<Precio>(entity =>
         {
-            entity.HasKey(e => e.IdPrecio).HasName("PK__Precios__95137B0409F00FA2");
+            entity.HasKey(e => e.IdPrecio).HasName("PK__Precios__95137B049845CF44");
 
-            entity.Property(e => e.IdPrecio)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("Id_Precio");
+            entity.Property(e => e.IdPrecio).HasColumnName("Id_Precio");
         });
 
         modelBuilder.Entity<Tupper>(entity =>
         {
-            entity.HasKey(e => e.IdProducto).HasName("PK__Tuppers__2085A9CF395FF4E3");
+            entity.HasKey(e => e.IdProducto).HasName("PK__Tuppers__2085A9CF5015A848");
 
             entity.Property(e => e.IdProducto)
                 .HasMaxLength(10)
@@ -219,18 +204,15 @@ public partial class AvonmoDatabaseContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("Id_Categoria");
-            entity.Property(e => e.IdPrecio)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("Id_Precio");
+            entity.Property(e => e.IdPrecio).HasColumnName("Id_Precio");
 
             entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Tuppers)
                 .HasForeignKey(d => d.IdCategoria)
-                .HasConstraintName("FK__Tuppers__Id_Cate__72C60C4A");
+                .HasConstraintName("FK__Tuppers__Id_Cate__18EBB532");
 
             entity.HasOne(d => d.IdPrecioNavigation).WithMany(p => p.Tuppers)
                 .HasForeignKey(d => d.IdPrecio)
-                .HasConstraintName("FK__Tuppers__Id_Prec__73BA3083");
+                .HasConstraintName("FK__Tuppers__Id_Prec__19DFD96B");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -11,7 +11,7 @@ public partial class Crema
 
     public string? Descripcion { get; set; }
 
-    public string? IdPrecio { get; set; }
+    public int? IdPrecio { get; set; }
 
     public virtual Categorium? IdCategoriaNavigation { get; set; }
 
