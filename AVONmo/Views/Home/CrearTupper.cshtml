@@ -1,0 +1,25 @@
+﻿@model AVONmo.Models.Tupper
+@{
+    ViewData["Title"] = "Nuevo Tupper";
+}
+<h1>Pagina de Creacion de nuevo producto</h1>
+<form asp-action="CrearCrema" method="post">
+
+    Categoria: <input asp-for=IdCategoria value="Tupper" disabled class="form-control" />
+    <br />
+    @if (ViewBag.Mensaje != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Mensaje
+
+        </div>
+    }
+    Ultimo ID Producto "Agregue el numero que sigue"<input asp-for=IdProducto class="form-control" />
+    <br />
+    Nombre Producto <input asp-for=Descripcion value="" required class="form-control" />
+    <br />
+    Precio <input type="number" step="0.01" name="Precio" required class="form-control" />
+    <br />
+    <button type="submit" class="btn-danger" id="btn">AGREGAR</button>
+</form>
+<br />

@@ -1,6 +1,7 @@
 using AVONmo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Diagnostics;
 
 namespace AVONmo.Controllers
@@ -20,7 +21,7 @@ namespace AVONmo.Controllers
         {
             return View(await _context.Categoria.ToListAsync());
         }
-
+        //listas
         public async Task<IActionResult> CremasAsync()
         {
             List<Crema> listaCremas;
@@ -35,7 +36,6 @@ namespace AVONmo.Controllers
             //ViewBag.Categoria = Categoria;
             return View(new Tuple<List<Crema>, List<Precio>, List<Categorium>>(listaCremas, listaPrecio, listaCategorias));
         }
-
 
         public async Task<IActionResult> Perfumes()
         {
@@ -97,6 +97,8 @@ namespace AVONmo.Controllers
             return View(new Tuple<List<Tupper>, List<Precio>, List<Categorium>>(listaTuppers, listaPrecio, listaCategorias));
         }
 
+
+        //Creacion de productos
         public async Task<IActionResult> CrearCrema()
         {
             return View(await _context.Cremas.OrderBy(e => e.IdProducto).LastAsync());
@@ -208,6 +210,175 @@ namespace AVONmo.Controllers
 
             }
         }
+        
+        public async Task<IActionResult> CrearMaquillaje()
+        {
+            return View(await _context.Maquillajes.OrderBy(e => e.IdProducto).LastAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> CrearMaquillaje(Maquillaje maquillaje,float Precio)
+        {
+            var MaquillajeExistente = await _context.Maquillajes.FirstOrDefaultAsync(c => c.IdProducto == maquillaje.IdProducto);
+            if (maquillaje != null)
+            {
+                ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
+                return View(maquillaje);
+            }
+            else
+            {
+                // Verificar si el precio ya existe
+                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
+                maquillaje.IdCategoria = "M-000";
+                if (precioExistente == null)
+                {
+                    // Si no existe, crear y agregar un nuevo precio
+                    Precio precio = new Precio { Cantidad = Precio };
+                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                    await _context.SaveChangesAsync();
+
+                    // Asignar el ID del nuevo precio al modelo crema
+                    maquillaje.IdPrecio = precio.IdPrecio;
+                }
+                else
+                {
+                    // Si el precio ya existe, usar el ID existente
+                    maquillaje.IdPrecio = precioExistente.IdPrecio;
+
+                }
+
+
+                // Agregar la crema al contexto y guardar los cambios
+                _context.Maquillajes.Add(maquillaje);
+                var result = await _context.SaveChangesAsync();
+
+                // Verificar que se haya guardado correctamente
+                if (result > 0)
+                {
+                    // Redirigir a la vista 'Cremas' si la operación fue exitosa
+                    return RedirectToAction("Maquillaje");
+                }
+                else
+                {
+                    return View(maquillaje);
+                }
+
+
+            }
+        }
+
+
+        public async Task<IActionResult> CrearTupper() 
+        {
+            return View(await _context.Tuppers.OrderBy(e => e.IdProducto).LastAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> CrearTupper(Tupper tupper,float Precio)
+        {
+            var TupperExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == tupper.IdProducto);
+            if (tupper != null)
+            {
+                ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
+                return View(tupper);
+            }
+            else
+            {
+                // Verificar si el precio ya existe
+                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
+                tupper.IdCategoria = "T-000";
+                if (precioExistente == null)
+                {
+                    // Si no existe, crear y agregar un nuevo precio
+                    Precio precio = new Precio { Cantidad = Precio };
+                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                    await _context.SaveChangesAsync();
+
+                    // Asignar el ID del nuevo precio al modelo crema
+                    tupper.IdPrecio = precio.IdPrecio;
+                }
+                else
+                {
+                    // Si el precio ya existe, usar el ID existente
+                    tupper.IdPrecio = precioExistente.IdPrecio;
+
+                }
+
+
+                // Agregar la crema al contexto y guardar los cambios
+                _context.Tuppers.Add(tupper );
+                var result = await _context.SaveChangesAsync();
+
+                // Verificar que se haya guardado correctamente
+                if (result > 0)
+                {
+                    return RedirectToAction("Tuppers");
+                }
+                else
+                {
+                    return View(tupper);
+                }
+
+
+            }
+        }
+
+        public async Task<IActionResult> CrearElectrodomestico()
+        {
+            return View(await _context.Electrodomesticos.OrderBy(e => e.IdProducto).LastAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> CrearElectrodomestico(Electrodomestico electrodomestico,float Precio)
+        {
+            var ElectrodomesticoExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == electrodomestico.IdProducto);
+            if (electrodomestico != null)
+            {
+                ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
+                return View(electrodomestico);
+            }
+            else
+            {
+                // Verificar si el precio ya existe
+                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
+                electrodomestico.IdCategoria = "E-000";
+                if (precioExistente == null)
+                {
+                    // Si no existe, crear y agregar un nuevo precio
+                    Precio precio = new Precio { Cantidad = Precio };
+                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                    await _context.SaveChangesAsync();
+
+                    // Asignar el ID del nuevo precio al modelo crema
+                    electrodomestico.IdPrecio = precio.IdPrecio;
+                }
+                else
+                {
+                    // Si el precio ya existe, usar el ID existente
+                    electrodomestico.IdPrecio = precioExistente.IdPrecio;
+
+                }
+
+
+                // Agregar la crema al contexto y guardar los cambios
+                _context.Electrodomesticos.Add(electrodomestico);
+                var result = await _context.SaveChangesAsync();
+
+                // Verificar que se haya guardado correctamente
+                if (result > 0)
+                {
+                    return RedirectToAction("Electrodomesticos");
+                }
+                else
+                {
+                    return View(electrodomestico);
+                }
+
+
+            }
+        }
+
+
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

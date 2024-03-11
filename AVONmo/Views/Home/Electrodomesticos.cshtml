@@ -7,32 +7,30 @@
         <div class="card-body">
             <h2 class="card-title font-weight-bold text-center">@ViewData["Title"]</h2>
             <hr>
-
-
-
-            <table class="table table-warning table-striped">
-
-                <thead class="table-dark">
-                    <tr>
-                        <th class="text-center" width="20%">CATEGORIA</th>
-                        <th class="text-center" width="16%">ID</th>
-                        <th class="text-center" width="16%">NOMBRE</th>
-                        <th class="text-center" width="16%">PRECIO</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < Model.Item1.Count; i++)
-                    {
-                        <tr>
-                            <td class="text-center">@Model.Item3[i].Titulo</td>
-                            <td class="text-center">@Model.Item1[i].IdProducto</td>
-                            <td>@Model.Item1[i].Descripcion</td>
-                            <td class="text-center">@Model.Item2[i].Cantidad</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="CrearElectrodomestico"><img src="/plus.svg" alt="Icono de agregar" />Nuevo Producto</a>
         </div>
     </div>
 </div>
+<table class="table table-warning table-striped">
+
+    <thead class="table-dark">
+        <tr>
+            <th class="text-center" width="20%">CATEGORIA</th>
+            <th class="text-center" width="16%">ID</th>
+            <th class="text-center" width="16%">NOMBRE</th>
+            <th class="text-center" width="16%">PRECIO</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Item1.Count; i++)
+        {
+            <tr>
+                <td class="text-center">@Model.Item3[i].Titulo</td>
+                <td class="text-center">@Model.Item1[i].IdProducto</td>
+                <td>@Model.Item1[i].Descripcion</td>
+                <td class="text-center">@Model.Item2[i].Cantidad</td>
+            </tr>
+        }
+    </tbody>
+</table>
