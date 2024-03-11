@@ -1,4 +1,5 @@
 using AVONmo.Models;
+using AVONmo.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +23,7 @@ namespace AVONmo.Controllers
             return View(await _context.Categoria.ToListAsync());
         }
         //listas
-        public async Task<IActionResult> CremasAsync()
+        public async Task<IActionResult> Cremas()
         {
             List<Crema> listaCremas;
             List<Precio> listaPrecio;
@@ -114,27 +115,27 @@ namespace AVONmo.Controllers
             }
             else
             {
-            // Verificar si el precio ya existe
-            var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
-            crema.IdCategoria = "C-000";
-            if (precioExistente == null)
-            {
-                // Si no existe, crear y agregar un nuevo precio
-                Precio precio = new Precio { Cantidad = Precio };
-                _context.Precios.Add(precio); // Cambiado de AddAsync a Add
-                await _context.SaveChangesAsync();
+                // Verificar si el precio ya existe
+                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
+                crema.IdCategoria = "C-000";
+                if (precioExistente == null)
+                {
+                    // Si no existe, crear y agregar un nuevo precio
+                    Precio precio = new Precio { Cantidad = Precio };
+                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                    await _context.SaveChangesAsync();
 
-                // Asignar el ID del nuevo precio al modelo crema
-                crema.IdPrecio = precio.IdPrecio;
-            }
-            else
-            {
-                // Si el precio ya existe, usar el ID existente
-                crema.IdPrecio = precioExistente.IdPrecio;
-               
-            }
-            
-           
+                    // Asignar el ID del nuevo precio al modelo crema
+                    crema.IdPrecio = precio.IdPrecio;
+                }
+                else
+                {
+                    // Si el precio ya existe, usar el ID existente
+                    crema.IdPrecio = precioExistente.IdPrecio;
+
+                }
+
+
                 // Agregar la crema al contexto y guardar los cambios
                 _context.Cremas.Add(crema);
                 var result = await _context.SaveChangesAsync();
@@ -149,11 +150,11 @@ namespace AVONmo.Controllers
                 {
                     return View(crema);
                 }
-            
-                
+
+
             }
-            
-            
+
+
         }
 
         public async Task<IActionResult> CrearPerfume()
@@ -161,7 +162,7 @@ namespace AVONmo.Controllers
             return View(await _context.Perfumes.OrderBy(e => e.IdProducto).LastAsync());
         }
         [HttpPost]
-        public async Task<IActionResult> CrearPerfume(Perfume perfume,float Precio)
+        public async Task<IActionResult> CrearPerfume(Perfume perfume, float Precio)
         {
             var PerfumeExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == perfume.IdProducto);
             if (perfume != null)
@@ -210,13 +211,13 @@ namespace AVONmo.Controllers
 
             }
         }
-        
+
         public async Task<IActionResult> CrearMaquillaje()
         {
             return View(await _context.Maquillajes.OrderBy(e => e.IdProducto).LastAsync());
         }
         [HttpPost]
-        public async Task<IActionResult> CrearMaquillaje(Maquillaje maquillaje,float Precio)
+        public async Task<IActionResult> CrearMaquillaje(Maquillaje maquillaje, float Precio)
         {
             var MaquillajeExistente = await _context.Maquillajes.FirstOrDefaultAsync(c => c.IdProducto == maquillaje.IdProducto);
             if (maquillaje != null)
@@ -267,12 +268,12 @@ namespace AVONmo.Controllers
         }
 
 
-        public async Task<IActionResult> CrearTupper() 
+        public async Task<IActionResult> CrearTupper()
         {
             return View(await _context.Tuppers.OrderBy(e => e.IdProducto).LastAsync());
         }
         [HttpPost]
-        public async Task<IActionResult> CrearTupper(Tupper tupper,float Precio)
+        public async Task<IActionResult> CrearTupper(Tupper tupper, float Precio)
         {
             var TupperExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == tupper.IdProducto);
             if (tupper != null)
@@ -304,7 +305,7 @@ namespace AVONmo.Controllers
 
 
                 // Agregar la crema al contexto y guardar los cambios
-                _context.Tuppers.Add(tupper );
+                _context.Tuppers.Add(tupper);
                 var result = await _context.SaveChangesAsync();
 
                 // Verificar que se haya guardado correctamente
@@ -326,7 +327,7 @@ namespace AVONmo.Controllers
             return View(await _context.Electrodomesticos.OrderBy(e => e.IdProducto).LastAsync());
         }
         [HttpPost]
-        public async Task<IActionResult> CrearElectrodomestico(Electrodomestico electrodomestico,float Precio)
+        public async Task<IActionResult> CrearElectrodomestico(Electrodomestico electrodomestico, float Precio)
         {
             var ElectrodomesticoExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == electrodomestico.IdProducto);
             if (electrodomestico != null)
@@ -375,9 +376,110 @@ namespace AVONmo.Controllers
             }
         }
 
+        public async Task<IActionResult> UpdateCrema(string id)
+        {
+            Crema crema = new Crema();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var cremaEncontrada = await context.Cremas.FindAsync(id);
+                if (cremaEncontrada != null)
+                {
+                    crema.IdCategoria = cremaEncontrada.IdCategoria;
+                    crema.IdProducto = cremaEncontrada.IdProducto;
+                    crema.Descripcion = cremaEncontrada.Descripcion;
+                    crema.IdPrecio = cremaEncontrada.IdPrecio;
+
+                    // Suponiendo que IdPrecio e IdCategoria son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(cremaEncontrada.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new CremaViewModel
+            {
+                Crema = crema,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCrema(CremaViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var cremaOriginal = await _context.Cremas.FindAsync(model.Crema.IdProducto);
+                var precioOriginal = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+                if (cremaOriginal != null && precioOriginal != null)
+                {
+                    // Actualiza solo los campos que han cambiado
+                    if (cremaOriginal.Descripcion != model.Crema.Descripcion)
+                    {
+                        cremaOriginal.Descripcion = model.Crema.Descripcion;
+                    }
+                    if (precioOriginal.Cantidad != model.Precio.Cantidad)
+                    {
+                        precioOriginal.Cantidad = model.Precio.Cantidad;
+                    }
 
 
+                    await _context.SaveChangesAsync();
+                }
+                ViewBag.Seccion = "Cremas";
+                return View("ActualizacionCompleta", ViewBag.Seccion);
+            }
 
+            return View(model);
+        }
+
+        public async Task<IActionResult> DeleteCrema(string id)
+        {
+            {
+                Crema crema = new Crema();
+                Precio precio = new Precio();
+
+                using (var context = _context)
+                {
+                    var cremaEncontrada = await context.Cremas.FindAsync(id);
+                    if (cremaEncontrada != null)
+                    {
+                        crema.IdCategoria = cremaEncontrada.IdCategoria;
+                        crema.IdProducto = cremaEncontrada.IdProducto;
+                        crema.Descripcion = cremaEncontrada.Descripcion;
+                        crema.IdPrecio = cremaEncontrada.IdPrecio;
+
+                        // Suponiendo que IdPrecio e IdCategoria son claves foráneas para los modelos Precio y Categorium
+                        precio = await context.Precios.FindAsync(cremaEncontrada.IdPrecio);
+                    }
+                }
+                // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+                var viewModel = new CremaViewModel
+                {
+                    Crema = crema,
+                    Precio = precio,
+                };
+
+                return View(viewModel);
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteCrema(CremaViewModel model)
+        {
+            var Crema = await _context.Cremas.FindAsync(model.Crema.IdProducto);
+            var Precio = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+
+            if (Crema != null && Precio != null)
+            {
+                _context.Cremas.Remove(Crema);
+                _context.Precios.Remove(Precio);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Cremas");
+
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

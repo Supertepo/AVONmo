@@ -7,13 +7,15 @@
     <div class="card-body">
         <h2 class="card-title font-weight-bold text-center">@ViewData["Title"]</h2>
         <hr>
-        <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="CrearCrema"><img src="/plus.svg" alt="Icono de agregar" />Nuevo Producto</a>
+        <a class="btn btn-outline-dark" asp-controller="Home" asp-action="CrearCrema"><img src="/plus.svg" alt="Icono de agregar" />Nuevo Producto</a>
+        <a class="btn btn-outline-dark" onclick="mostrarBotones();"><img src="/edit.svg" alt="Editar" />Editar tabla</a>
     </div>
 </div>
 <table class="table table-warning table-striped">
 
     <thead class="table-dark">
         <tr>
+            <td name="Actualizar">ACTUALIZAR/ELIMINAR</td>
             <th class="text-center" width="20%">CATEGORIA</th>
             <th class="text-center" width="16%">ID</th>
             <th class="text-center" width="16%">NOMBRE</th>
@@ -25,6 +27,7 @@
         @for (int i = 0; i < Model.Item1.Count; i++)
         {
             <tr>
+                <td name="Actualizar"><a class="btn btn-warning" asp-action="UpdateCrema" asp-route-id=@Model.Item1[i].IdProducto>Actualizar</a> <a class="btn btn-danger" asp-action="DeleteCrema" asp-route-id=@Model.Item1[i].IdProducto>ELIMINAR</a></td>
                 <td class="text-center">@Model.Item3[i].Titulo</td>
                 <td class="text-center">@Model.Item1[i].IdProducto</td>
                 <td>@Model.Item1[i].Descripcion</td>
@@ -33,3 +36,17 @@
         }
     </tbody>
 </table>
+
+<script>
+    var elementos = document.getElementsByName('Actualizar');
+    for (var i = 0; i < elementos.length; i++) {
+        elementos[i].style.display = 'none';
+    }
+
+    function mostrarBotones() {
+        var elementos = document.getElementsByName('Actualizar');
+        for (var i = 0; i < elementos.length; i++) {
+            elementos[i].style.display = 'table-cell';
+        }
+    }
+</script>
