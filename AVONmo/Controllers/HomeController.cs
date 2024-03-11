@@ -376,6 +376,7 @@ namespace AVONmo.Controllers
             }
         }
 
+        //Update productos
         public async Task<IActionResult> UpdateCrema(string id)
         {
             Crema crema = new Crema();
@@ -391,7 +392,7 @@ namespace AVONmo.Controllers
                     crema.Descripcion = cremaEncontrada.Descripcion;
                     crema.IdPrecio = cremaEncontrada.IdPrecio;
 
-                    // Suponiendo que IdPrecio e IdCategoria son claves foráneas para los modelos Precio y Categorium
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
                     precio = await context.Precios.FindAsync(cremaEncontrada.IdPrecio);
                 }
             }
@@ -434,6 +435,123 @@ namespace AVONmo.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> UpdatePerfume(string id)
+        {
+            Perfume perfume = new Perfume();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var perfumeEncontrado = await context.Perfumes.FindAsync(id);
+                if (perfumeEncontrado != null)
+                {
+                    perfume.IdCategoria = perfumeEncontrado.IdCategoria;
+                    perfume.IdProducto = perfumeEncontrado.IdProducto;
+                    perfume.Descripcion = perfumeEncontrado.Descripcion;
+                    perfume.IdPrecio = perfumeEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(perfumeEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new PerfumeViewModel
+            {
+                Perfume = perfume,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdatePerfume(PerfumeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var perfumeOriginal = await _context.Perfumes.FindAsync(model.Perfume.IdProducto);
+                var precioOriginal = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+                if (perfumeOriginal != null && precioOriginal != null)
+                {
+                    // Actualiza solo los campos que han cambiado
+                    if (perfumeOriginal.Descripcion != model.Perfume.Descripcion)
+                    {
+                        perfumeOriginal.Descripcion = model.Perfume.Descripcion;
+                    }
+                    if (precioOriginal.Cantidad != model.Precio.Cantidad)
+                    {
+                        precioOriginal.Cantidad = model.Precio.Cantidad;
+                    }
+
+
+                    await _context.SaveChangesAsync();
+                }
+
+                return View("ActualizacionCompleta");
+            }
+
+            return View(model);
+        }
+        public async Task<IActionResult> UpdateElectrodomestico(string id)
+        {
+            Electrodomestico electrodomestico = new Electrodomestico();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var electrodomesticoEncontrado = await context.Electrodomesticos.FindAsync(id);
+                if (electrodomesticoEncontrado != null)
+                {
+                    electrodomestico.IdCategoria = electrodomesticoEncontrado.IdCategoria;
+                    electrodomestico.IdProducto = electrodomesticoEncontrado.IdProducto;
+                    electrodomestico.Descripcion = electrodomesticoEncontrado.Descripcion;
+                    electrodomestico.IdPrecio = electrodomesticoEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(electrodomesticoEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new ElectrodomesticoViewModel
+            {
+                Electrodomestico = electrodomestico,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateElectrodomestico(ElectrodomesticoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var electrodomesticoOriginal = await _context.Electrodomesticos.FindAsync(model.Electrodomestico.IdProducto);
+                var precioOriginal = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+                if (electrodomesticoOriginal != null && precioOriginal != null)
+                {
+                    // Actualiza solo los campos que han cambiado
+                    if (electrodomesticoOriginal.Descripcion != model.Electrodomestico.Descripcion)
+                    {
+                        electrodomesticoOriginal.Descripcion = model.Electrodomestico.Descripcion;
+                    }
+                    if (precioOriginal.Cantidad != model.Precio.Cantidad)
+                    {
+                        precioOriginal.Cantidad = model.Precio.Cantidad;
+                    }
+
+
+                    await _context.SaveChangesAsync();
+                }
+
+                return View("ActualizacionCompleta");
+            }
+
+            return View(model);
+        }
+
+
+        //Delete productos 
         public async Task<IActionResult> DeleteCrema(string id)
         {
             {
@@ -480,6 +598,101 @@ namespace AVONmo.Controllers
             return RedirectToAction("Cremas");
 
         }
+
+        public async Task<IActionResult> DeletePerfume(string id)
+        {
+
+            Perfume perfume = new Perfume();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var perfumeEncontrado = await context.Perfumes.FindAsync(id);
+                if (perfumeEncontrado != null)
+                {
+                    perfume.IdCategoria = perfumeEncontrado.IdCategoria;
+                    perfume.IdProducto = perfumeEncontrado.IdProducto;
+                    perfume.Descripcion = perfumeEncontrado.Descripcion;
+                    perfume.IdPrecio = perfumeEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(perfumeEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new PerfumeViewModel
+            {
+                Perfume = perfume,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeletePerfume(PerfumeViewModel model)
+        {
+            var Perfume = await _context.Perfumes.FindAsync(model.Perfume.IdProducto);
+            var Precio = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+
+            if (Perfume != null && Precio != null)
+            {
+                _context.Perfumes.Remove(Perfume);
+                _context.Precios.Remove(Precio);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Perfumes");
+        }
+        public async Task<IActionResult> DeleteElectrodomestico(string id)
+        {
+
+            Electrodomestico electrodomestico = new Electrodomestico();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var electrodomesticoEncontrado = await context.Electrodomesticos.FindAsync(id);
+                if (electrodomesticoEncontrado != null)
+                {
+                    electrodomestico.IdCategoria = electrodomesticoEncontrado.IdCategoria;
+                    electrodomestico.IdProducto = electrodomesticoEncontrado.IdProducto;
+                    electrodomestico.Descripcion = electrodomesticoEncontrado.Descripcion;
+                    electrodomestico.IdPrecio = electrodomesticoEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(electrodomesticoEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new ElectrodomesticoViewModel
+            {
+                Electrodomestico = electrodomestico,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteElectrodomestico(ElectrodomesticoViewModel model)
+        {
+            var Electrodomestico = await _context.Electrodomesticos.FindAsync(model.Electrodomestico.IdProducto);
+            var Precio = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+
+            if (Electrodomestico != null && Precio != null)
+            {
+                _context.Electrodomesticos.Remove(Electrodomestico);
+                _context.Precios.Remove(Precio);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Electrodomestico");
+        }
+
+
+
+        //Error
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

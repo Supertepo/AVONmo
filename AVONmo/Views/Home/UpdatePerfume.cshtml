@@ -1,0 +1,22 @@
+﻿@model AVONmo.Models.ViewModels.PerfumeViewModel
+@{
+    ViewData["Title"] = "Actualizar Perfume";
+}
+
+<h1>Pagina de Actualización de Producto</h1>
+
+<form asp-action="UpdatePerfume" method="post">
+
+    <input asp-for=Perfume.IdCategoria type="hidden" />
+    <input asp-for=Perfume.IdProducto class="form-control" type="hidden" />
+    Nombre Producto:
+    <input asp-for=Perfume.Descripcion required class="form-control" />
+    <br />
+    <input asp-for=Perfume.IdPrecio type="hidden" />
+    <input asp-for=Precio.IdPrecio type="hidden" />
+    Precio:
+    <input asp-for="Precio.Cantidad" type="number" step="0.01" required class="form-control" />
+    <br />
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a href="@Url.Action("Perfumes")" class="btn btn-secondary">Cancelar</a>
+</form>
