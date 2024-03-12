@@ -1,0 +1,16 @@
+﻿@model AVONmo.Models.ViewModels.MaquillajeViewModel
+@{
+}
+<form asp-action="DeleteMaquillaje" method="post">
+    <label>Estas Seguro que vas a elimianr el producto</label>
+    <br />
+    <label>@Model.Maquillaje.Descripcion</label>
+    <input asp-for="Maquillaje.Descripcion" type="hidden" />
+    <input asp-for="Maquillaje.IdProducto" type="hidden" />
+    <input asp-for="Maquillaje.IdCategoria" type="hidden" />
+    <input asp-for="Maquillaje.IdPrecio" type="hidden" />
+    <input asp-for="Precio.IdPrecio" type="hidden" />
+    <input asp-for="Precio.Cantidad" type="hidden" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="@Url.Action("Maquillaje")" class="btn btn-secondary">Cancelar</a>
+</form>

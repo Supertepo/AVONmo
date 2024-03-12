@@ -5,7 +5,7 @@
 <h1>Pagina de Creacion de nuevo producto</h1>
 <form asp-action="CrearCrema" method="post">
 
-    Categoria: <input asp-for=IdCategoria value="Cremas" disabled class="form-control" />
+    Categoria: <input asp-for=IdCategoria value="Cremas" type="hidden" class="form-control" />
     <br />
     @if (ViewBag.Mensaje != null)
     {

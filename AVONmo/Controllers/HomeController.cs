@@ -116,24 +116,15 @@ namespace AVONmo.Controllers
             else
             {
                 // Verificar si el precio ya existe
-                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
                 crema.IdCategoria = "C-000";
-                if (precioExistente == null)
-                {
-                    // Si no existe, crear y agregar un nuevo precio
-                    Precio precio = new Precio { Cantidad = Precio };
-                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
-                    await _context.SaveChangesAsync();
 
-                    // Asignar el ID del nuevo precio al modelo crema
-                    crema.IdPrecio = precio.IdPrecio;
-                }
-                else
-                {
-                    // Si el precio ya existe, usar el ID existente
-                    crema.IdPrecio = precioExistente.IdPrecio;
+                // Si no existe, crear y agregar un nuevo precio
+                Precio precio = new Precio { Cantidad = Precio };
+                _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                await _context.SaveChangesAsync();
 
-                }
+                // Asignar el ID del nuevo precio al modelo crema
+                crema.IdPrecio = precio.IdPrecio;
 
 
                 // Agregar la crema al contexto y guardar los cambios
@@ -165,7 +156,7 @@ namespace AVONmo.Controllers
         public async Task<IActionResult> CrearPerfume(Perfume perfume, float Precio)
         {
             var PerfumeExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == perfume.IdProducto);
-            if (perfume != null)
+            if (PerfumeExistente != null)
             {
                 ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
                 return View(perfume);
@@ -173,24 +164,16 @@ namespace AVONmo.Controllers
             else
             {
                 // Verificar si el precio ya existe
-                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
                 perfume.IdCategoria = "P-000";
-                if (precioExistente == null)
-                {
-                    // Si no existe, crear y agregar un nuevo precio
-                    Precio precio = new Precio { Cantidad = Precio };
-                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
-                    await _context.SaveChangesAsync();
 
-                    // Asignar el ID del nuevo precio al modelo crema
-                    perfume.IdPrecio = precio.IdPrecio;
-                }
-                else
-                {
-                    // Si el precio ya existe, usar el ID existente
-                    perfume.IdPrecio = precioExistente.IdPrecio;
+                // Si no existe, crear y agregar un nuevo precio
+                Precio precio = new Precio { Cantidad = Precio };
+                _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                await _context.SaveChangesAsync();
 
-                }
+                // Asignar el ID del nuevo precio al modelo crema
+                perfume.IdPrecio = precio.IdPrecio;
+
 
 
                 // Agregar la crema al contexto y guardar los cambios
@@ -201,7 +184,7 @@ namespace AVONmo.Controllers
                 if (result > 0)
                 {
                     // Redirigir a la vista 'Cremas' si la operación fue exitosa
-                    return RedirectToAction("Perfume");
+                    return RedirectToAction("Perfumes");
                 }
                 else
                 {
@@ -220,7 +203,7 @@ namespace AVONmo.Controllers
         public async Task<IActionResult> CrearMaquillaje(Maquillaje maquillaje, float Precio)
         {
             var MaquillajeExistente = await _context.Maquillajes.FirstOrDefaultAsync(c => c.IdProducto == maquillaje.IdProducto);
-            if (maquillaje != null)
+            if (MaquillajeExistente != null)
             {
                 ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
                 return View(maquillaje);
@@ -228,24 +211,16 @@ namespace AVONmo.Controllers
             else
             {
                 // Verificar si el precio ya existe
-                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
                 maquillaje.IdCategoria = "M-000";
-                if (precioExistente == null)
-                {
-                    // Si no existe, crear y agregar un nuevo precio
-                    Precio precio = new Precio { Cantidad = Precio };
-                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
-                    await _context.SaveChangesAsync();
 
-                    // Asignar el ID del nuevo precio al modelo crema
-                    maquillaje.IdPrecio = precio.IdPrecio;
-                }
-                else
-                {
-                    // Si el precio ya existe, usar el ID existente
-                    maquillaje.IdPrecio = precioExistente.IdPrecio;
+                // Si no existe, crear y agregar un nuevo precio
+                Precio precio = new Precio { Cantidad = Precio };
+                _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                await _context.SaveChangesAsync();
 
-                }
+                // Asignar el ID del nuevo precio al modelo crema
+                maquillaje.IdPrecio = precio.IdPrecio;
+
 
 
                 // Agregar la crema al contexto y guardar los cambios
@@ -275,8 +250,8 @@ namespace AVONmo.Controllers
         [HttpPost]
         public async Task<IActionResult> CrearTupper(Tupper tupper, float Precio)
         {
-            var TupperExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == tupper.IdProducto);
-            if (tupper != null)
+            var TupperExistente = await _context.Tuppers.FirstOrDefaultAsync(c => c.IdProducto == tupper.IdProducto);
+            if (TupperExistente != null)
             {
                 ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
                 return View(tupper);
@@ -284,24 +259,16 @@ namespace AVONmo.Controllers
             else
             {
                 // Verificar si el precio ya existe
-                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
                 tupper.IdCategoria = "T-000";
-                if (precioExistente == null)
-                {
-                    // Si no existe, crear y agregar un nuevo precio
-                    Precio precio = new Precio { Cantidad = Precio };
-                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
-                    await _context.SaveChangesAsync();
 
-                    // Asignar el ID del nuevo precio al modelo crema
-                    tupper.IdPrecio = precio.IdPrecio;
-                }
-                else
-                {
-                    // Si el precio ya existe, usar el ID existente
-                    tupper.IdPrecio = precioExistente.IdPrecio;
+                // Si no existe, crear y agregar un nuevo precio
+                Precio precio = new Precio { Cantidad = Precio };
+                _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                await _context.SaveChangesAsync();
 
-                }
+                // Asignar el ID del nuevo precio al modelo crema
+                tupper.IdPrecio = precio.IdPrecio;
+
 
 
                 // Agregar la crema al contexto y guardar los cambios
@@ -329,7 +296,7 @@ namespace AVONmo.Controllers
         [HttpPost]
         public async Task<IActionResult> CrearElectrodomestico(Electrodomestico electrodomestico, float Precio)
         {
-            var ElectrodomesticoExistente = await _context.Perfumes.FirstOrDefaultAsync(c => c.IdProducto == electrodomestico.IdProducto);
+            var ElectrodomesticoExistente = await _context.Electrodomesticos.FirstOrDefaultAsync(c => c.IdProducto == electrodomestico.IdProducto);
             if (electrodomestico != null)
             {
                 ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
@@ -338,24 +305,17 @@ namespace AVONmo.Controllers
             else
             {
                 // Verificar si el precio ya existe
-                var precioExistente = await _context.Precios.FirstOrDefaultAsync(p => p.Cantidad == Precio);
                 electrodomestico.IdCategoria = "E-000";
-                if (precioExistente == null)
-                {
-                    // Si no existe, crear y agregar un nuevo precio
-                    Precio precio = new Precio { Cantidad = Precio };
-                    _context.Precios.Add(precio); // Cambiado de AddAsync a Add
-                    await _context.SaveChangesAsync();
 
-                    // Asignar el ID del nuevo precio al modelo crema
-                    electrodomestico.IdPrecio = precio.IdPrecio;
-                }
-                else
-                {
-                    // Si el precio ya existe, usar el ID existente
-                    electrodomestico.IdPrecio = precioExistente.IdPrecio;
 
-                }
+                Precio precio = new Precio { Cantidad = Precio };
+                _context.Precios.Add(precio); // Cambiado de AddAsync a Add
+                await _context.SaveChangesAsync();
+
+                // Asignar el ID del nuevo precio al modelo crema
+                electrodomestico.IdPrecio = precio.IdPrecio;
+
+
 
 
                 // Agregar la crema al contexto y guardar los cambios
@@ -550,6 +510,122 @@ namespace AVONmo.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> UpdateMaquillaje(string id)
+        {
+            Maquillaje maquillaje = new Maquillaje();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var maquillajeEncontrado = await context.Maquillajes.FindAsync(id);
+                if (maquillajeEncontrado != null)
+                {
+                    maquillaje.IdCategoria = maquillajeEncontrado.IdCategoria;
+                    maquillaje.IdProducto = maquillajeEncontrado.IdProducto;
+                    maquillaje.Descripcion = maquillajeEncontrado.Descripcion;
+                    maquillaje.IdPrecio = maquillajeEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(maquillajeEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new MaquillajeViewModel
+            {
+                Maquillaje = maquillaje,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateMaquillaje(MaquillajeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var maquillajeOriginal = await _context.Maquillajes.FindAsync(model.Maquillaje.IdProducto);
+                var precioOriginal = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+                if (maquillajeOriginal != null && precioOriginal != null)
+                {
+                    // Actualiza solo los campos que han cambiado
+                    if (maquillajeOriginal.Descripcion != model.Maquillaje.Descripcion)
+                    {
+                        maquillajeOriginal.Descripcion = model.Maquillaje.Descripcion;
+                    }
+                    if (precioOriginal.Cantidad != model.Precio.Cantidad)
+                    {
+                        precioOriginal.Cantidad = model.Precio.Cantidad;
+                    }
+
+
+                    await _context.SaveChangesAsync();
+                }
+
+                return View("ActualizacionCompleta");
+            }
+
+            return View(model);
+        }
+        public async Task<IActionResult> UpdateTupper(string id)
+        {
+            Tupper tupper = new Tupper();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var tupperEncontrado = await context.Tuppers.FindAsync(id);
+                if (tupperEncontrado != null)
+                {
+                    tupper.IdCategoria = tupperEncontrado.IdCategoria;
+                    tupper.IdProducto = tupperEncontrado.IdProducto;
+                    tupper.Descripcion = tupperEncontrado.Descripcion;
+                    tupper.IdPrecio = tupperEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(tupperEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new TupperViewModel
+            {
+                Tupper = tupper,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateTupper(TupperViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var tupperOriginal = await _context.Tuppers.FindAsync(model.Tupper.IdProducto);
+                var precioOriginal = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+                if (tupperOriginal != null && precioOriginal != null)
+                {
+                    // Actualiza solo los campos que han cambiado
+                    if (tupperOriginal.Descripcion != model.Tupper.Descripcion)
+                    {
+                        tupperOriginal.Descripcion = model.Tupper.Descripcion;
+                    }
+                    if (precioOriginal.Cantidad != model.Precio.Cantidad)
+                    {
+                        precioOriginal.Cantidad = model.Precio.Cantidad;
+                    }
+
+
+                    await _context.SaveChangesAsync();
+                }
+
+                return View("ActualizacionCompleta");
+            }
+
+            return View(model);
+        }
+
+
 
         //Delete productos 
         public async Task<IActionResult> DeleteCrema(string id)
@@ -690,8 +766,96 @@ namespace AVONmo.Controllers
             return RedirectToAction("Electrodomestico");
         }
 
+        public async Task<IActionResult> DeleteMaquillaje(string id)
+        {
 
+            Maquillaje maquillaje = new Maquillaje();
+            Precio precio = new Precio();
 
+            using (var context = _context)
+            {
+                var maquillajeEncontrado = await context.Maquillajes.FindAsync(id);
+                if (maquillajeEncontrado != null)
+                {
+                    maquillaje.IdCategoria = maquillajeEncontrado.IdCategoria;
+                    maquillaje.IdProducto = maquillajeEncontrado.IdProducto;
+                    maquillaje.Descripcion = maquillajeEncontrado.Descripcion;
+                    maquillaje.IdPrecio = maquillajeEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(maquillajeEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new MaquillajeViewModel
+            {
+                Maquillaje = maquillaje,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteMaquillaje(MaquillajeViewModel model)
+        {
+            var Maquillaje = await _context.Maquillajes.FindAsync(model.Maquillaje.IdProducto);
+            var Precio = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+
+            if (Maquillaje != null && Precio != null)
+            {
+                _context.Maquillajes.Remove(Maquillaje);
+                _context.Precios.Remove(Precio);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Maquillaje");
+        }
+        public async Task<IActionResult> DeleteTupper(string id)
+        {
+
+            Tupper tupper = new Tupper();
+            Precio precio = new Precio();
+
+            using (var context = _context)
+            {
+                var tupperEncontrado = await context.Tuppers.FindAsync(id);
+                if (tupperEncontrado != null)
+                {
+                    tupper.IdCategoria = tupperEncontrado.IdCategoria;
+                    tupper.IdProducto = tupperEncontrado.IdProducto;
+                    tupper.Descripcion = tupperEncontrado.Descripcion;
+                    tupper.IdPrecio = tupperEncontrado.IdPrecio;
+
+                    // Suponiendo que IdPrecio  son claves foráneas para los modelos Precio y Categorium
+                    precio = await context.Precios.FindAsync(tupperEncontrado.IdPrecio);
+                }
+            }
+            // Crear un ViewModel si es necesario para pasar múltiples modelos a la vista
+            var viewModel = new TupperViewModel
+            {
+                Tupper = tupper,
+                Precio = precio,
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteTupper(TupperViewModel model)
+        {
+            var Tupper = await _context.Tuppers.FindAsync(model.Tupper.IdProducto);
+            var Precio = await _context.Precios.FindAsync(model.Precio.IdPrecio);
+
+            if (Maquillaje != null && Precio != null)
+            {
+                _context.Tuppers.Remove(Tupper);
+                _context.Precios.Remove(Precio);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Tuppers");
+        }
         //Error
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
