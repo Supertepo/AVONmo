@@ -8,6 +8,8 @@
             <h2 class="card-title font-weight-bold text-center">@ViewData["Title"]</h2>
             <hr>
             <a class="btn btn-outline-dark" asp-area="" asp-controller="Home" asp-action="CrearMaquillaje"><img src="/plus.svg" alt="Icono de agregar" />Nuevo Producto</a>
+            <a class="btn btn-outline-dark" onclick="mostrarBotones();"><img src="/edit.svg" alt="Editar" />Editar tabla</a>
+
         </div>
     </div>
 </div>
@@ -15,8 +17,7 @@
 
     <thead class="table-dark">
         <tr>
-            <td name="Actualizar">ACTUALIZAR/ELIMINAR</td>
-            <th class="text-center" width="20%">CATEGORIA</th>
+            <td name="Actualizar" width="25%">ACTUALIZAR/ELIMINAR</td>
             <th class="text-center" width="16%">ID</th>
             <th class="text-center" width="16%">NOMBRE</th>
             <th class="text-center" width="16%">PRECIO</th>
@@ -27,7 +28,7 @@
         @for (int i = 0; i < Model.Item1.Count; i++)
         {
             <tr>
-                <td class="text-center">@Model.Item3[i].Titulo</td>
+                <td name="Actualizar"><a class="btn btn-warning" asp-action="UpdateMaquillaje" asp-route-id=@Model.Item1[i].IdProducto>Actualizar</a> <a class="btn btn-danger" asp-action="DeleteMaquillaje" asp-route-id=@Model.Item1[i].IdProducto>ELIMINAR</a></td>
                 <td class="text-center">@Model.Item1[i].IdProducto</td>
                 <td>@Model.Item1[i].Descripcion</td>
                 <td class="text-center">@Model.Item2[i].Cantidad</td>

@@ -16,11 +16,10 @@
 
     <thead class="table-dark">
         <tr>
-            <td name="Actualizar">ACTUALIZAR/ELIMINAR</td>
-            <th class="text-center" width="20%">CATEGORIA</th>
-            <th class="text-center" width="16%">ID</th>
-            <th class="text-center" width="16%">NOMBRE</th>
-            <th class="text-center" width="16%">PRECIO</th>
+            <th name="Actualizar" width="25%">ACTUALIZAR/ELIMINAR</th>
+            <th class="text-center" width="25%">ID</th>
+            <th class="text-center" width="25%">NOMBRE</th>
+            <th class="text-center" width="25%">PRECIO</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +27,6 @@
         {
             <tr>
                 <td name="Actualizar"><a class="btn btn-warning" asp-action="UpdateElectrodomestico" asp-route-id=@Model.Item1[i].IdProducto>Actualizar</a> <a class="btn btn-danger" asp-action="DeleteElectrodomestico" asp-route-id=@Model.Item1[i].IdProducto>ELIMINAR</a></td>
-                <td class="text-center">@Model.Item3[i].Titulo</td>
                 <td class="text-center">@Model.Item1[i].IdProducto</td>
                 <td>@Model.Item1[i].Descripcion</td>
                 <td class="text-center">@Model.Item2[i].Cantidad</td>
