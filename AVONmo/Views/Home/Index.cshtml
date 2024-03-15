@@ -15,7 +15,7 @@
 
 @foreach (var categoria in Model)
 {
-    <div class="categoria">
+    <div class="categoria shadow-lg">
         <h2><a asp-controller="Home" asp-action="@categoria.Titulo">@categoria.Titulo</a></h2>
         <p>@categoria.Descripcion</p>
     </div>
