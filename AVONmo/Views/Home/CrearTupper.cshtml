@@ -5,7 +5,7 @@
 <h1>Pagina de Creacion de nuevo producto</h1>
 <form asp-action="CrearTupper" method="post">
 
-    Categoria: <input asp-for=IdCategoria value="Tupper" disabled class="form-control" />
+    <input asp-for=IdCategoria value="Tupper" type="hidden" class="form-control" />
     <br />
     @if (ViewBag.Mensaje != null)
     {

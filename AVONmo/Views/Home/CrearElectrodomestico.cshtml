@@ -5,7 +5,7 @@
 <h1>Pagina de Creacion de nuevo producto</h1>
 <form asp-action="CrearElectrodomestico" method="post">
 
-    Categoria: <input asp-for=IdCategoria value="Electrodomestico" disabled class="form-control" />
+    <input asp-for=IdCategoria value="Electrodomestico" type="hidden" class="form-control" />
     <br />
     @if (ViewBag.Mensaje != null)
     {
