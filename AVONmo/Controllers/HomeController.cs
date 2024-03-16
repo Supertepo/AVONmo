@@ -297,7 +297,7 @@ namespace AVONmo.Controllers
         public async Task<IActionResult> CrearElectrodomestico(Electrodomestico electrodomestico, float Precio)
         {
             var ElectrodomesticoExistente = await _context.Electrodomesticos.FirstOrDefaultAsync(c => c.IdProducto == electrodomestico.IdProducto);
-            if (electrodomestico != null)
+            if (ElectrodomesticoExistente != null)
             {
                 ViewBag.Mensaje = "No cambiaste el ID de producto por el siguiente";
                 return View(electrodomestico);
