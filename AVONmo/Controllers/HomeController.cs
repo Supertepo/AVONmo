@@ -763,7 +763,7 @@ namespace AVONmo.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Electrodomestico");
+            return RedirectToAction("Electrodomesticos");
         }
 
         public async Task<IActionResult> DeleteMaquillaje(string id)
