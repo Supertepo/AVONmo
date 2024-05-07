@@ -20,7 +20,14 @@ namespace AVONmo.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categoria.ToListAsync());
+            List<Categorium> ListaCategoria;
+            List<Menu> ListaMenu;
+            using (var context = _context)
+            {
+                ListaCategoria = await context.Categoria.ToListAsync();
+                ListaMenu = await context.Menus.ToListAsync();
+            }
+            return View(new Tuple<List<Categorium>, List<Menu>>(ListaCategoria, ListaMenu));
         }
         //listas
         public async Task<IActionResult> Cremas()
@@ -129,6 +136,10 @@ namespace AVONmo.Controllers
 
                 // Agregar la crema al contexto y guardar los cambios
                 _context.Cremas.Add(crema);
+
+                // buscamos el numero de cremas en el menu
+
+
                 var result = await _context.SaveChangesAsync();
 
                 // Verificar que se haya guardado correctamente
