@@ -32,7 +32,6 @@ public partial class AvonContext : DbContext
     public virtual DbSet<Tupper> Tuppers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=avonmo-server.database.windows.net,1433;Database=avonmo-database;User=avonmo-server-admin;Password=03RFMD6NS6W167L5$");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
